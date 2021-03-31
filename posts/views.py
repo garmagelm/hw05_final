@@ -4,21 +4,21 @@ from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-from django.views.decorators.cache import cache_page
 from .models import Follow, Post, Group
 from .forms import CommentForm, PostForm
 
 User = get_user_model()
 
 
-@cache_page(60 * 15)
 def index(request):
     post_list = Post.objects.all()
     paginator = Paginator(post_list, 10)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
-    context = {"page": page, "paginator": paginator}
-    return render(request, 'index.html', context)
+    return render(
+        request,
+        'index.html',
+        {'page': page})
 
 
 def group_posts(request, slug):
@@ -27,8 +27,10 @@ def group_posts(request, slug):
     paginator = Paginator(posts, 10)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
-    context = {"group": group, "page": page, "paginator": paginator}
-    return render(request, "group.html", context)
+    return render(
+        request,
+        'group.html',
+        {'page': page})
 
 
 @login_required
@@ -56,7 +58,6 @@ def profile(request, username):
         following = True
     return render(request, 'profile.html',
                   {'page': page,
-                   'paginator': paginator,
                    'author': post_user,
                    'follower_count': post_user.following.count(),
                    'following_count': post_user.follower.count,
