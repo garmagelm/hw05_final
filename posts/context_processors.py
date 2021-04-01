@@ -1,4 +1,5 @@
 import datetime as dt
+# Когда удаляю этот файл, то pytest валится...
 
 
 def year(request):

@@ -95,3 +95,5 @@ class PostCreateTest(TestCase):
         self.assertEqual(Post.objects.count(), tasks_count + 1)
         self.assertTrue(Post.objects.filter(
             group=PostCreateTest.group).exists())
+        self.assertEqual(response.status_code, 200)
+        self.assertIsNotNone(Post.objects.first().image)

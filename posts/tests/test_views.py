@@ -274,7 +274,7 @@ class PagesTest(TestCase):
 
     def test_succes_follow(self):
         """Авторизованный пользователь
-        может удалять пользователей из подписок."""
+        может подписываться на пользователей."""
         self.authorized_client.get(reverse("profile_follow", kwargs={
             "username": self.user_for_subscribe.username
         }))
@@ -283,6 +283,8 @@ class PagesTest(TestCase):
         self.assertTrue(follow)
 
     def test_succes_unfollow(self):
+        """Авторизованный пользователь
+        может удалять пользователей из подписок."""
         self.authorized_client.get(reverse("profile_unfollow", kwargs={
             "username": self.user_for_subscribe.username
         }))
