@@ -18,7 +18,7 @@ class PagesTest(TestCase):
         super().setUpClass()
         settings.MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
         cls.PAGE_NAME = "page"
-        cls.test_username = "test_user"
+        cls.test_username = "'user'"
         cls.user = User.objects.create_user(username=PagesTest.test_username)
         cls.user_for_subscribe = User.objects.create_user(
             username="user_for_subscribe"

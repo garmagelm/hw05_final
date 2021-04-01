@@ -12,7 +12,7 @@ class URLTests(TestCase):
             slug="test-slug"
         )
         self.guest_client = Client()
-        self.user = User.objects.create_user(username="testuser")
+        self.user = User.objects.create_user(username='user')
         self.user_author = User.objects.create_user(username="userauthor")
         self.authorized_client = Client()
         self.authorized_client.force_login(self.user)

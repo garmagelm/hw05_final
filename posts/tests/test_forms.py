@@ -19,7 +19,7 @@ class PostCreateTest(TestCase):
 
         settings.MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
 
-        cls.author = User.objects.create(username='roman')
+        cls.author = User.objects.create(username='user')
         cls.group = Group.objects.create(
             title='test_title',
             slug='test_slug',
@@ -47,9 +47,9 @@ class PostCreateTest(TestCase):
         cache.clear()
 
     def test_form_edit_post(self):
-        """при редактировании поста через форму на странице
+        """При редактировании поста через форму на странице
         /<username>/<post_id>/edit/
-        изменяется соответствующая запись в базе данных"""
+        изменяется соответствующая запись в базе данных."""
         form_data = {'group': self.group.id,
                      'text': 'modified-post',
                      }
