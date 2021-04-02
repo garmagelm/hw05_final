@@ -43,14 +43,14 @@ class PostsModelTest(TestCase):
                     post._meta.get_field(value).help_text, expected
                 )
 
-    def test_str(self):
-        """Проверка первых 15 символов поста."""
+    def test_object_name_is_text_field(self):
+        """Проверка, что str сокращает текст поста до 15 символов."""
         post = PostsModelTest.post
-        text = post.text
-        self.assertEqual(str(post), text[:15])
+        expected_object_name = post.text[:15]
+        self.assertEqual(expected_object_name, str(post))
 
     def test_group_title(self):
-        """Проверка названия группы."""
+        """Проверка, что str корректно выдает название группы."""
         group = PostsModelTest.group
         title = str(group)
         self.assertEqual(title, group.title)

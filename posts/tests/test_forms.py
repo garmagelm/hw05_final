@@ -81,7 +81,7 @@ class PostCreateTest(TestCase):
             content=small_gif,
             content_type='image/gif'
         )
-
+        image_name = 'small.gif'
         form_data = {'group': PostCreateTest.group.id,
                      'text': 'test_text',
                      'image': uploaded,
@@ -96,4 +96,11 @@ class PostCreateTest(TestCase):
         self.assertTrue(Post.objects.filter(
             group=PostCreateTest.group).exists())
         self.assertEqual(response.status_code, 200)
-        self.assertIsNotNone(Post.objects.first().image)
+        self.assertTrue(
+            Post.objects.filter(
+                author=PostCreateTest.author,
+                text=self.post.text,
+                group=PostCreateTest.group.id,
+                image=f'posts/{image_name}'
+            ).exists()
+        )
