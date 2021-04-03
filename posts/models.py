@@ -32,13 +32,19 @@ class Post(models.Model):
         verbose_name='Группа',
         help_text='Выберите группу',
     )
-    image = models.ImageField(upload_to='posts/', blank=True, null=True)
+    image = models.ImageField(
+        upload_to='posts/',
+        blank=True,
+        null=True,
+        verbose_name='Изображение',
+        help_text='Загрузите изображение',
+    )
 
     def __str__(self):
-        return self.text
+        return self.text[:15]
 
     class Meta:
-        ordering = ("-pub_date",)
+        ordering = ["-pub_date"]
 
 
 class Comment(models.Model):

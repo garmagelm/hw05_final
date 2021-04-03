@@ -81,7 +81,6 @@ class PostCreateTest(TestCase):
             content=small_gif,
             content_type='image/gif'
         )
-        image_name = 'small.gif'
         form_data = {'group': PostCreateTest.group.id,
                      'text': 'test_text',
                      'image': uploaded,
@@ -93,14 +92,16 @@ class PostCreateTest(TestCase):
         )
         self.assertRedirects(response, reverse('index'))
         self.assertEqual(Post.objects.count(), tasks_count + 1)
-        self.assertTrue(Post.objects.filter(
-            group=PostCreateTest.group).exists())
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue(
-            Post.objects.filter(
-                author=PostCreateTest.author,
-                text=self.post.text,
-                group=PostCreateTest.group.id,
-                image=f'posts/{image_name}'
-            ).exists()
-        )
+        post_with_image = {
+            'index': reverse('index'),
+            'profile': reverse(
+                'profile', kwargs={'username': self.user.username, }),
+            'group': reverse(
+                'group_posts', kwargs={'slug': self.group.slug, }),
+            'post': reverse('post', kwargs={'username': self.user.username,
+                                            'post_id': self.post.id + 1, }),
+        }
+        for key, item in post_with_image.items():
+            with self.subTest():
+                response = self.authorized_client.get(item)
+        self.assertContains(response, '<img')
