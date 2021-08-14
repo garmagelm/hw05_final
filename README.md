@@ -11,11 +11,11 @@
 
 ***Стек технологий:***
 
-Python3
-Django
-Pytest
-Pillow
-Bootstrap
+* Python3
+* Django
+* Pytest
+* Pillow
+* Bootstrap
 
 ***Установка:***
 
